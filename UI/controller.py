@@ -9,8 +9,25 @@ class Controller:
         self._model = model
 
     def handleAnalizzaOggetti(self, e):
-        pass
+        self._model.creaGrafo()
+        self._view.txt_result.controls.append(ft.Text("Grafo correttamente creato"))
+        self._view.txt_result.controls.append(ft.Text(f"il grafo contiene {self._model.getNumNodes()} nodi"))
+        self._view.txt_result.controls.append(ft.Text(f"il grafo contiene {self._model.getNumEdges()} archi"))
+        self._view.update_page()
 
     def handleCompConnessa(self,e):
-        pass
-
+        idAdded=self._view._txtIdOggetto.value
+        try :
+            intID=int(idAdded)
+        except ValueError:
+            self._view.txt_result.controls.clear()
+            self._view.txt_result.controls.append(ft.Text("Il valore inserito non è consono"))
+            self._view.update_page()
+            return
+        if self._model.checkExistance(intID):
+            self._view.txt_result.controls.append(ft.Text(f"L'oggetto {intID} è presente nel grafo"))
+        else:
+            self._view.txt_result.controls.append(ft.Text(f"L'oggetto {intID} non è presente nel grafo"))
+        sizeConnessa=self._model.getConnessa(intID)
+        self._view.txt_result.controls.append(ft.Text(f"La componenete connessa che contiene {intID} ha dimensione {sizeConnessa}"))
+        self._view.update_page()

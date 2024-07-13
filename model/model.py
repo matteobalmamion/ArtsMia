@@ -13,6 +13,9 @@ class Model:
     def creaGrafo(self):
         self.addEdges()
 
+    def getObjectFromID(self,idOggett):
+        return self._idMap[idOggett]
+
     def getConnessa(self,v0int):
         #Modo 1: successori di v0 in DFS
         v0=self._idMap[v0int]

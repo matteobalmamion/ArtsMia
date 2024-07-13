@@ -15,6 +15,10 @@ class Controller:
         self._view.txt_result.controls.append(ft.Text(f"il grafo contiene {self._model.getNumEdges()} archi"))
         self._view.update_page()
 
+    def handleCercaPercorso(self,e):
+
+        self._model.getBestPath(int(self._view._ddLun.value),self._model.getObjectFromID(self._view.txtIdOggetto.value))
+
     def handleCompConnessa(self,e):
         idAdded=self._view._txtIdOggetto.value
         try :
@@ -30,4 +34,7 @@ class Controller:
             self._view.txt_result.controls.append(ft.Text(f"L'oggetto {intID} non è presente nel grafo"))
         sizeConnessa=self._model.getConnessa(intID)
         self._view.txt_result.controls.append(ft.Text(f"La componenete connessa che contiene {intID} ha dimensione {sizeConnessa}"))
+        myOpt=list(range(2,sizeConnessa))
+        for i in myOpt:
+            self._view._ddLun.options.append(ft.dropdown.Option(i))
         self._view.update_page()
